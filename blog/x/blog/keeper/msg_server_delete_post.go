@@ -18,8 +18,11 @@ func (k msgServer) DeletePost(goCtx context.Context, msg *types.MsgDeletePost) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
 	}
 	if msg.Creator != val.Creator {
-		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		if !k.CheckAuthorization(ctx, msg.Id, val.Creator, msg.Creator) {
+			return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "user unauthorized")
+		}
 	}
+
 	k.RemovePost(ctx, msg.Id)
 	return &types.MsgDeletePostResponse{}, nil
 }

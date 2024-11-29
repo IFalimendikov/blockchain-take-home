@@ -18,7 +18,9 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 		return nil, errorsmod.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
 	}
 	if msg.Creator != val.Creator {
-		return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
+		if !k.CheckAuthorization(ctx, msg.Id, val.Creator, msg.Creator) {
+			return nil, errorsmod.Wrap(sdkerrors.ErrUnauthorized, "user unauthorized")
+		}
 	}
 	post := types.Post{
 		Creator: val.Creator,
@@ -28,7 +30,7 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 		CreatedAt: val.CreatedAt,
 		LastUpdatedAt: ctx.BlockTime().Unix(),
 	}
-	
 	k.SetPost(ctx, post)
+
 	return &types.MsgUpdatePostResponse{}, nil
 }
