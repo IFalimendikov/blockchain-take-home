@@ -23,11 +23,11 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 		}
 	}
 	post := types.Post{
-		Creator: val.Creator,
-		Id:      msg.Id,
-		Title:   msg.Title,
-		Body:    msg.Body,
-		CreatedAt: val.CreatedAt,
+		Creator:       val.Creator,
+		Id:            msg.Id,
+		Title:         msg.Title,
+		Body:          msg.Body,
+		CreatedAt:     val.CreatedAt,
 		LastUpdatedAt: ctx.BlockTime().Unix(),
 	}
 	k.SetPost(ctx, post)

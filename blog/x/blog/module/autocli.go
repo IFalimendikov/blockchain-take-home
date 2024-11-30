@@ -61,15 +61,15 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
 				{
-					RpcMethod: "GrantPostAuthorization",
-					Use:       "grant-auth [id] [grantee]",
-					Short:     "Grant authorization for a post to another address",
+					RpcMethod:      "GrantPostAuthorization",
+					Use:            "grant-auth [id] [grantee]",
+					Short:          "Grant authorization for a post to another address",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "grantee"}},
 				},
 				{
-					RpcMethod: "RevokePostAuthorization",
-					Use:       "revoke-auth [id] [grantee]",
-					Short:     "Revoke authorization for a post from an address",
+					RpcMethod:      "RevokePostAuthorization",
+					Use:            "revoke-auth [id] [grantee]",
+					Short:          "Revoke authorization for a post from an address",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}, {ProtoField: "grantee"}},
 				},
 				// this line is used by ignite scaffolding # autocli/tx
